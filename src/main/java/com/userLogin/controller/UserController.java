@@ -24,6 +24,11 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
         }
     }
+
+    @DeleteMapping("/delete")
+    public String deleteUserById (@RequestParam int id){
+        return null;
+    }
 }
 
 

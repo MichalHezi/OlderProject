@@ -22,6 +22,16 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public String deleteUserById(int id) {
+        String sql = "DELETE FROM " + USER_TABLE_NAME + " WHERE id = ?";
+        if(jdbcTemplate.update(sql,id) == 1){
+            return "User with id " + id + " was deleted";
+        }else{
+            return "User with id " + id + " was not found";
+        }
+    }
+
+    @Override
     public CustomUser findUserByUsername(String username) {
         String sql = "SELECT * FROM " + USER_TABLE_NAME + " WHERE username=?";
         try {

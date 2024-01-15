@@ -1,5 +1,6 @@
 package com.userLogin.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.userLogin.model.CustomUser;
 import com.userLogin.model.CustomUserRequest;
 import com.userLogin.repository.UserRepository;
@@ -30,6 +31,22 @@ public class UserServiceImpl implements UserService {
     public CustomUser findUserByUsername(String username) {
         return userRepository.findUserByUsername(username);
     }
+
+    @Override
+    public String updateUserPassword(String newPassword, Long id) {
+        return userRepository.updateUserPassword(newPassword,id);
+    }
+
+    @Override
+    public String updateUsername(String newUsername, Long id) {
+        return userRepository.updateUsername(newUsername, id);
+    }
+
+    @Override
+    public CustomUser getUserById(Long id) throws JsonProcessingException {
+        return userRepository.getUserById(id);
+    }
+
 }
 
 

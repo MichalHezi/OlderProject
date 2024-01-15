@@ -1,5 +1,6 @@
 package com.userLogin.repository;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.userLogin.model.CustomUser;
 import com.userLogin.repository.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,8 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void createUser(CustomUser customUser) {
-        String sql = "INSERT INTO " + USER_TABLE_NAME + " (username, password, roles, permissions) VALUES (?, ?, ?, ?)";
-        jdbcTemplate.update(sql, customUser.getUsername(), customUser.getPassword(), customUser.getRoles(), customUser.getPermissions());
+        String sql = "INSERT INTO " + USER_TABLE_NAME + " (username, password, firstname, lastname, email, phone, address, roles, permissions) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, customUser.getUsername(), customUser.getPassword(), customUser.getFirstname(),customUser.getLastname(),customUser.getEmail(), customUser.getPhone(), customUser.getAddress(), customUser.getRoles(), customUser.getPermissions());
     }
 
     @Override
@@ -40,6 +41,27 @@ public class UserRepositoryImpl implements UserRepository {
             return null;
         }
     }
+
+    @Override
+    public String updateUserPassword(String newPassword, Long id){
+        String sql = "UPDATE " + USER_TABLE_NAME + " SET password = ? WHERE id = ?";
+        jdbcTemplate.update(sql,newPassword,id);
+        return "User's password updated";
+    }
+
+    @Override
+    public String updateUsername(String newUsername, Long id) {
+        String sql = "UPDATE " + USER_TABLE_NAME + " SET username = ? WHERE id = ?";
+        jdbcTemplate.update(sql,newUsername,id);
+        return "User's username updated";
+    }
+
+    @Override
+    public CustomUser getUserById(Long id) throws JsonProcessingException {
+        String sql = "SELECT * FROM " + USER_TABLE_NAME + " WHERE id = ?";
+        return jdbcTemplate.queryForObject(sql, new UserMapper(), id);
+    }
+
 }
 
 

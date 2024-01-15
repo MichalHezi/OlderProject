@@ -1,5 +1,6 @@
 package com.userLogin.controller;
 
+import com.userLogin.model.CustomUser;
 import com.userLogin.model.CustomUserRequest;
 import com.userLogin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,18 @@ public class UserController {
 
     @DeleteMapping("/delete")
     public String deleteUserById (@RequestParam int id){
-        return null;
+        userService.deleteUserById(id);
+        return "User deleted";
+    }
+    @PutMapping("/password")
+    public String updateUserPassword(@RequestBody CustomUser customUser){
+        userService.updateUserPassword(customUser.getPassword(),customUser.getId());
+        return "User's password was updated";
+    }
+    @PutMapping("/username")
+    public String updateUsername(@RequestBody CustomUser customUser){
+        userService.updateUsername(customUser.getUsername(),customUser.getId());
+        return "User's username was updated";
     }
 }
 

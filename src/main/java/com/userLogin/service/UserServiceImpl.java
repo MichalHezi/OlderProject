@@ -3,9 +3,12 @@ package com.userLogin.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.userLogin.model.CustomUser;
 import com.userLogin.model.CustomUserRequest;
+import com.userLogin.model.FavoriteList;
 import com.userLogin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -14,12 +17,12 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public void createUser(CustomUserRequest customUserRequest) throws Exception {
+    public Long createUser(CustomUserRequest customUserRequest) throws Exception {
         CustomUser existingCustomUser = userRepository.findUserByUsername(customUserRequest.getUsername());
         if(existingCustomUser != null){
             throw new Exception("Username " + customUserRequest.getUsername() + " is already taken");
         }
-        userRepository.createUser(customUserRequest.toCustomUser());
+        return userRepository.createUser(customUserRequest.toCustomUser());
     }
 
     @Override
@@ -46,6 +49,32 @@ public class UserServiceImpl implements UserService {
     public CustomUser getUserById(Long id) throws JsonProcessingException {
         return userRepository.getUserById(id);
     }
+
+    @Override
+    public List<FavoriteList> getFavoriteList(Long id) {
+        return userRepository.getFavoriteList(id);
+    }
+
+    @Override
+    public void addToFavoriteList(Long userId, Long itemId) {
+        if (!userRepository.isItemInFavoriteList(userId, itemId)){
+            userRepository.addToFavoriteList(userId, itemId);
+        }else{
+            System.out.println("Item already exists in the favorite list.");
+
+        }
+    }
+
+    @Override
+    public boolean isItemInFavoriteList(Long userId, Long itemId) {
+        return userRepository.isItemInFavoriteList(userId, itemId);
+    }
+
+    @Override
+    public void removeFromFavoriteList(Long userId, Long itemId) {
+        userRepository.removeFromFavoriteList(userId, itemId);
+    }
+
 
 }
 

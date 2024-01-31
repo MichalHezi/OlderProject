@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface OrderRepository {
     void createOrder(Order order);
-    void deleteOrder(int id);
+    void deleteOrderByUserId(Long id);
     List<Order> getOrdersByUserId(Long id);
 }

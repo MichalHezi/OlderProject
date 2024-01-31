@@ -1,6 +1,5 @@
 package com.userLogin.controller;
 
-import com.userLogin.model.TestResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

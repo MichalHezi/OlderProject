@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public class ItemRepositoryImpl implements ItemRepository{
-    private static final String ITEM_TABLE_NAME = "item";
+    private static final String ITEM_TABLE_NAME = "items";
     @Autowired
     JdbcTemplate jdbcTemplate;
     @Autowired

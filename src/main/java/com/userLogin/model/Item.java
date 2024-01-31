@@ -1,5 +1,7 @@
 package com.userLogin.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Item {
 
     private int id;

@@ -14,11 +14,6 @@ public class ItemController {
     ItemService itemService;
 
 
-    @GetMapping
-    public String getResponse(){
-        return "response1";
-    }
-
     @PostMapping
     public Long createItem(@RequestBody Item item){
         return itemService.createItem(item);
